@@ -11,10 +11,6 @@ abstract class GameObject {
   /**Representa el alto de los objetos de la subclase*/
   protected Integer heightGO;
 
-  //---Zona de metodos-------//
-
-  public abstract void display();
-
   //---Zona de metodos Accesores-------//
 
   /** Modifica el valor del atributo position */
