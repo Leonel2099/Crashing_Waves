@@ -16,7 +16,6 @@ class Enemy extends FrameObject {
 
   /** Constructor por defecto */
   public Enemy() {
-    //this.option=option;
     this.velocity=new PVector(3,3);
     this.position=new PVector();
   }
@@ -28,14 +27,10 @@ class Enemy extends FrameObject {
  public void display(){
    //imageMode(CENTER);
    image(this.sprite,position.x,position.y,48,48);
-   //print(option);
-   //print(getOption());
  }
 
   /**movimientos de los enemgios*/
   public void moveToCenter() {
-    //print(getOption());
-    //Aqui va el codigo para que se muevan los enemigos
     switch(getOption()) {
     case 1:
       position.y=position.y+velocity.y;//DOWN
@@ -61,10 +56,11 @@ class Enemy extends FrameObject {
 
   //---Zona de metodos Accesores-------//
   
-  
+  /** Modifica el valor del atributo option */
   public void setOption(int option) {
     this.option=option;
   }
+  /** Obtenemos la variable option */
   public int getOption(){
     return this.option;
   }

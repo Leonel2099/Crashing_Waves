@@ -17,8 +17,6 @@ class Skeleton extends Enemy {
 
   /**Se Dibuja un enemigos Skeleton*/
   public void display() {
-    //Aqui va el codigo donde se dibuja al goblin
-    //rectMode(CENTER);
     switch(getOption()) {
     case 1:
       PImage frame=sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
@@ -72,7 +70,7 @@ class Skeleton extends Enemy {
   }
 
   public void elegirSprite() {
-    if (getOption()==ConstantList.DOWN_DIRECTION) {//1==DOWN
+    if (getOption()==ConstantList.DOWN_DIRECTION) {//DOWN
       sprite=requestImage("data/Image/Sprite/Skeleton/Down/Png/SkeletonWithSwordDownWalk.png");
     } else if (getOption()==ConstantList.RIGHT_DIRECTION) {
       sprite=requestImage("data/Image/Sprite/Skeleton/Right/Png/SkeletonWithSwordRightRun.png");

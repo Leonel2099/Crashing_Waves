@@ -16,8 +16,6 @@ class PossessedEnemy extends Enemy {
 
   /**Se Dibuja un enemigos PossessedEnemy*/
   public void display() {
-    //Aqui va el codigo donde se dibuja al goblin
-    //rectMode(CENTER);
     switch(getOption()) {
     case 1:
       PImage frame=sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
@@ -71,7 +69,7 @@ class PossessedEnemy extends Enemy {
   }
 
   public void elegirSprite() {
-    if (getOption()==ConstantList.DOWN_DIRECTION) {//1==DOWN
+    if (getOption()==ConstantList.DOWN_DIRECTION) {//DOWN
       sprite=requestImage("data/Image/Sprite/Possessed Enemy/Down/Png/PossesedDownWalk.png");
     } else if (getOption()==ConstantList.RIGHT_DIRECTION) {
       sprite=requestImage("data/Image/Sprite/Possessed Enemy/Right/Png/PossesedRightWalk.png");
