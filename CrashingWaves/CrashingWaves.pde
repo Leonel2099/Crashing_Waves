@@ -18,6 +18,6 @@ public void draw() {
   frameRate(15);//Se define un freamrate para calibrar los movimientos de sprites
   jugador.keyPressed();//Metodo que evalua la tecla presionada para que el jugador haga una accion
   jugador.keyReleased();//Metodo que evalua cuando el jugador deja de presionar la tecla
-  spawn.addEnemy(enemy);//Añadimos enemigos a las lista 
+  spawn.addEnemy(enemy.getOption());//Añadimos enemigos a las lista 
   spawn.display();//Dibujamos los enemigos que estan en la lista 
 }

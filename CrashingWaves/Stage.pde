@@ -5,7 +5,7 @@
 class Stage extends FrameObject {
 
   /**Representa la el nivel en el que esta */
-  protected Integer level=ConstantList.FIRST_LEVEL;
+  protected Integer level=2;//ConstantList.FIRST_LEVEL; //No esta el codigo termina, solo es de modo de prueba.
 
   /** Representa la lista de enemigos */
   protected ArrayList <Enemy> enemies;
