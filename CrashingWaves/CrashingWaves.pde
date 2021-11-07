@@ -1,4 +1,3 @@
-//hola
 private Player jugador;
 private Enemy enemy;
 private Stage spawn;
