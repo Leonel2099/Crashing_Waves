@@ -30,7 +30,7 @@ class Stage extends FrameObject {
   public void addEnemy(Enemy enemy) {
     int option=enemy.getOption();
     if (enemies.size()<1) {
-      if (level==ConstanList.FIRST_LEVEL) {
+      if (level==ConstantList.FIRST_LEVEL) {
         if (option==1) {
           enemy= new Goblin(new PVector(width/2, -48));//DOWN
           this.enemies.add(enemy);
