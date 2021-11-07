@@ -4,38 +4,71 @@
  */
 class Enemy extends FrameObject {
 
-
+  public int option=1;//(int)random(1,5);
   /**Representa la velocidad de los enemgios*/
   protected PVector velocity;
   /**Representa el tipo de numero de los enemigos*/
-  protected Integer rank;
+  protected Integer rank=1;
   /**Representa el nivel del daño provocado al jugador*/
   protected Integer damageLevel;
+  
+  
 
   /** Constructor por defecto */
   public Enemy() {
+    //this.option=option;
+    this.velocity=new PVector(3,3);
+    this.position=new PVector();
   }
 
   //---Zona de metodos-------//
 
 
   //dibujo de los enemigos
-  public void display() {
-    //Aqui va el codigo donde se dibuja los enemigos
-  }
+ public void display(){
+   //imageMode(CENTER);
+   image(this.sprite,position.x,position.y,48,48);
+   //print(option);
+   //print(getOption());
+ }
 
   /**movimientos de los enemgios*/
   public void moveToCenter() {
+    //print(getOption());
     //Aqui va el codigo para que se muevan los enemigos
+    switch(getOption()) {
+    case 1:
+      position.y=position.y+velocity.y;//DOWN
+      break;
+    case 2:
+      position.x=position.x+velocity.x;//LEFT  
+      break;
+    case 3:
+      position.x=position.x-velocity.x;//RIGHT
+      break;
+    case 4:
+      position.y=position.y-velocity.y;//UP
+      break;
+    }
   }
 
   /**ejecuta el ataque dl jugador*/
   public void  attackPlayer() {
     //Aqui va el codigo de colison de los enemigos con el personaje
   }
+  
+  
 
   //---Zona de metodos Accesores-------//
-
+  
+  
+  public void setOption(int option) {
+    this.option=option;
+  }
+  public int getOption(){
+    return this.option;
+  }
+  
   /** Modifica el valor del atributo velocidad */
   public void setVelocity(PVector velocity) {
     this.velocity=velocity;
