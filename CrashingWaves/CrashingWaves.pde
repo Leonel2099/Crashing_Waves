@@ -20,5 +20,4 @@ public void draw() {
   jugador.keyReleased();//Metodo que evalua cuando el jugador deja de presionar la tecla
   spawn.addEnemy(enemy);//Añadimos enemigos a las lista 
   spawn.display();//Dibujamos los enemigos que estan en la lista 
-  //print(enemy.getOption());
 }

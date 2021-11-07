@@ -28,16 +28,9 @@ class Stage extends FrameObject {
   }
 
   public void addEnemy(Enemy enemy) {
-    //Aqui va un codigo para agregar un enemigo a la lista
     int option=enemy.getOption();
-    //print(option);
-    
-    // sincronizar spawn de enemigo mediante el tiempo.
-    
     if (enemies.size()<1) {
-      if (level==ConstantList.FIRST_LEVEL) {
-        //println(goblin.getOption());
-        //Goblin goblin = new Goblin(new PVector(this.position.x,this.position.y));
+      if (level==ConstanList.FIRST_LEVEL) {
         if (option==1) {
           enemy= new Goblin(new PVector(width/2, -48));//DOWN
           this.enemies.add(enemy);

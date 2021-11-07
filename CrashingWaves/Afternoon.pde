@@ -18,7 +18,6 @@ class Afternoon extends Stage {
 
   /**Se Dibuja la imagen en el background*/
   public void display() {
-    //Aqui va el codigo donde se inserta la imagen del background
     PImage mapFrameMorning=sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
     mapFrameMorning.resize(700, 700);
     imageMode(CENTER);

@@ -18,8 +18,6 @@ class Goblin extends Enemy {
 
   /**Se Dibuja un enemigos Goblin*/
   public void display() {
-    //Aqui va el codigo donde se dibuja al goblin
-    //rectMode(CENTER);
     switch(getOption()) {
     case 1:
       PImage frame=sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
@@ -72,7 +70,7 @@ class Goblin extends Enemy {
     }
   }
 
-
+/** Se elije el sprite del enemigo segun su direccion */ 
   public void elegirSprite() {
     if (getOption()==ConstantList.DOWN_DIRECTION) {//1==DOWN
       sprite=requestImage("data/Image/Sprite/Goblin/Down/GoblinSlingerDownRun.png");
