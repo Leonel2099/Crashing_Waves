@@ -27,8 +27,8 @@ class Stage extends FrameObject {
     }
   }
 
-  public void addEnemy(Enemy enemy) {
-    int option=enemy.getOption();
+public void addEnemy(int option) {
+    Enemy enemy;
     if (enemies.size()<1) {
       if (level==ConstantList.FIRST_LEVEL) {
         if (option==1) {
@@ -42,6 +42,34 @@ class Stage extends FrameObject {
           this.enemies.add(enemy);
         } else if (option==4) {
           enemy= new Goblin(new PVector(width/2, height));//UP
+          this.enemies.add(enemy);
+        }
+      }else if (level==ConstantList.SECOND_LEVEL){
+        if (option==1) {
+          enemy= new PossessedEnemy(new PVector(width/2, -48));//DOWN
+          this.enemies.add(enemy);
+        } else if (option==2) {
+          enemy= new PossessedEnemy(new PVector(-48, height/2));//LEFT
+          this.enemies.add(enemy);
+        } else if (option==3) {
+          enemy=new PossessedEnemy(new PVector(width, height/2));//RIGTH
+          this.enemies.add(enemy);
+        } else if (option==4) {
+          enemy= new PossessedEnemy(new PVector(width/2, height));//UP
+          this.enemies.add(enemy);
+        }
+      }else if (level==ConstantList.THIRD_LEVEL){
+        if (option==1) {
+          enemy= new Skeleton(new PVector(width/2, -48));//DOWN
+          this.enemies.add(enemy);
+        } else if (option==2) {
+          enemy= new Skeleton(new PVector(-48, height/2));//LEFT
+          this.enemies.add(enemy);
+        } else if (option==3) {
+          enemy=new Skeleton(new PVector(width, height/2));//RIGTH
+          this.enemies.add(enemy);
+        } else if (option==4) {
+          enemy= new Skeleton(new PVector(width/2, height));//UP
           this.enemies.add(enemy);
         }
       }
