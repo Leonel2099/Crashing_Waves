@@ -217,9 +217,10 @@ class Stage extends FrameObject {
   
   /**Muestra una pantalla de que el nivel se ha completado */
   public void showLevelPassScreen() {
-    PImage wallpaper=loadImage("data/Image/nextLevel.png");
-    wallpaper.resize(700,700);
-    image(wallpaper, 0, 0);
+    background(0);//Fondo de negro
+    textAlign(CENTER);
+    textSize(50);
+    text("Press <n> para continuar.....", width/2, height/2);
   }
 
   /**Incrementa el puntaje segun el nivel */
