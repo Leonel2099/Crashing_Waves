@@ -7,7 +7,7 @@ class Night extends Stage {
   /** Constructor por defecto */
   public Night() {
     sprite = loadImage("data/Image/Sprite/Background/Png/BackgroundModelV1.png");
-    this.position = new PVector(width/2, height/2);
+    this.position = new PVector(0,0);
     posXframe=1400;
     posYframe=0;
     widthFrame=700;
@@ -18,8 +18,6 @@ class Night extends Stage {
   /**Se Dibuja la imagen en el background*/
   public void display() {
     PImage mapFrameMorning=sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
-    mapFrameMorning.resize(700, 700);
-    imageMode(CENTER);
     image(mapFrameMorning, position.x, position.y);
   }
 }
