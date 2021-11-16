@@ -11,6 +11,8 @@ class PossessedEnemy extends Enemy {
     this.position=position;
     this.widthFrame=48;
     this.heightFrame=48;
+    this.widthGO=48;
+    this.heightGO=48;
     this.posXframe=0;
     this.posYframe=0;
     selectSprite();
