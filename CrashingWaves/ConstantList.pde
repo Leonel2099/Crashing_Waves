@@ -9,6 +9,7 @@ class ConstantList {
   public static final int NEXT_SECOND_LEVEL=2;
   public static final int NEXT_THIRD_LEVEL=3;
   public static final int GAME_OVER=4;
+  public static final int VICTORY=5;
   /** CORRESPONDE AL IDENTIFICADOR DE NIVELES */
   public static final int FIRST_LEVEL=1;
   public static final int SECOND_LEVEL=2;
