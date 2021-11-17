@@ -54,6 +54,7 @@ public void draw() {
     player.keyTyped();//Evaluamos la tecla presionada y ejecutamos la operacion
     player.keyReleased();//Detecta si una tecla es presionada o no
     barlife.displayLifeBar(player.getLife());//Dibuja la barra de vida del jugador
+    stage.showParchment();//Dibuja el pergamino de recompensa segun el enemigo del nivel
     stage.showScore();//Muestra el puntaje del jugador
     stage.showLevel();//Muestra en que nivel se enscuentra
     stage.displayEnemies();//Dibuja a los enemigos que estan en una lista
