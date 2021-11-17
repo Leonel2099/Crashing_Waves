@@ -176,6 +176,22 @@ class Stage extends FrameObject {
     image(wallpaper, 0, 0);
   }
   
+  public void showParchment(){
+    PImage score;
+    if (level==ConstantList.FIRST_LEVEL) {
+      score=loadImage("data/Image/parchment_goblin.png");
+      image(score, 500, 20);
+    }
+    if (level==ConstantList.SECOND_LEVEL) {
+      score=loadImage("data/Image/parchment_enemypossessed.png");
+      image(score, 500, 20);
+    }
+    if (level==ConstantList.THIRD_LEVEL) {
+      score=loadImage("data/Image/parchment_skeleton.png");
+      image(score, 500, 20);
+    }
+  }
+  
   /**Muestra una pantalla de que el nivel se ha completado */
   public void showLevelPassScreen() {
     background(0);//Fondo de negro
