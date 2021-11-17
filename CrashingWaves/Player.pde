@@ -52,7 +52,6 @@ class Player extends FrameObject {
       PImage lifeBar = barLife.get(this.posXframe, this.posYframe, 300, 40);
       lifeBar.resize(300, 40);
       image(lifeBar, 0, 20);
-      println(heal);
       switch(heal) {
       case 90:
         this.posYframe=40;
@@ -85,7 +84,7 @@ class Player extends FrameObject {
         this.posYframe=400;
         break;
       }
-      if (heal<=6) {
+      if (heal<3) {
         this.posYframe=0;
       }
     }
@@ -103,23 +102,38 @@ class Player extends FrameObject {
   /**Este metodo evalua si el player colisiona con el enemigo mediante su ataque*/
   public boolean colliding(Enemy enemy) {
     if (((this.position.y-46)==enemy.getPosition().y)&&direction==ConstantList.UP_DIRECTION_ATTACK) {
+      sword.setGain(-5);
+      sword.play();
+      sword.rewind();
       enemy.die();
       return true;
     }
     if (this.position.x+46==(enemy.getPosition().x)&&direction==ConstantList.LEFT_DIRECTION_ATTACK) {
+      sword.setGain(-5);
+      sword.play();
+      sword.rewind();
       enemy.die();
       return true;
     }
     if (this.position.x-46==(enemy.getPosition().x)&&direction==ConstantList.RIGHT_DIRECTION_ATTACK) {
+      sword.setGain(-5);
+      sword.play();
+      sword.rewind();
       enemy.die();
       return true;
     }
     if ((this.position.y+46==(enemy.getPosition().y))&&direction==ConstantList.DOWN_DIRECTION_ATTACK) {
+      sword.setGain(-5);
+      sword.play();
+      sword.rewind();
       enemy.die();
       return true;
     }
     if (direction==ConstantList.ALL_DIRECTION_ATTACK) {
       if ((this.position.y-46==(enemy.getPosition().y))||(this.position.x+46==(enemy.getPosition().x))||(this.position.y+46==(enemy.getPosition().y))||(this.position.x-46==(enemy.getPosition().x))) {
+        sword.setGain(-5);
+        sword.play();   
+        sword.rewind();
         enemy.die();
         return true;
       }
@@ -130,9 +144,6 @@ class Player extends FrameObject {
 
   /**Carga el sprite del ataque especial*/
   public void attackCircurlarly(int attack) {
-    if (attack == 0) {
-      display();
-    }
     if (attack == 5) {
       sprite = loadImage("data/Image/Sprite/Player/Down/Png/WarriorAttackCircularly.png");
       PImage spriteDown = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
@@ -151,6 +162,9 @@ class Player extends FrameObject {
       display();
     }
     if (directionAttack == 1) {
+      sword2.setGain(-5);
+      sword2.play();
+      sword2.rewind();
       sprite = loadImage("data/Image/Sprite/Player/Up/Png/WarriorUpAttack01.png");
       PImage spriteUp = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
       image(spriteUp, this.position.x, this.position.y);
@@ -161,6 +175,9 @@ class Player extends FrameObject {
       }
     }
     if (directionAttack == 2) {
+      sword2.setGain(-5);
+      sword2.play();
+      sword2.rewind();
       sprite = loadImage("data/Image/Sprite/Player/Right/Png/WarriorRightAttack01.png");
       PImage spriteRight = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
       image(spriteRight, this.position.x, this.position.y);
@@ -171,6 +188,9 @@ class Player extends FrameObject {
       }
     }
     if (directionAttack == 3) {
+      sword2.setGain(-5);
+      sword2.play();
+      sword2.rewind();
       sprite = loadImage("data/Image/Sprite/Player/Down/Png/WarriorDownAttack01.png");
       PImage spriteDown = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
       image(spriteDown, this.position.x, this.position.y);
@@ -181,6 +201,9 @@ class Player extends FrameObject {
       }
     }
     if (directionAttack == 4) {
+      sword2.setGain(-5);
+      sword2.play();
+      sword2.rewind();
       sprite = loadImage("data/Image/Sprite/Player/Left/Png/WarriorLeftAttack01.png");
       PImage spriteDown = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
       image(spriteDown, this.position.x, this.position.y);
@@ -199,13 +222,13 @@ class Player extends FrameObject {
       if (key == 'w' || key == 'W' || keyCode == UP) {
         this.direction = ConstantList.UP_DIRECTION_ATTACK;
       }
-      if (key == 'a' || key == 'A' || keyCode == LEFT) { // invertido
+      if (key == 'a' || key == 'A' || keyCode == LEFT) {
         this.direction = ConstantList.RIGHT_DIRECTION_ATTACK;
       }
       if (key == 's' || key == 'S' || keyCode == DOWN) {
         this.direction = ConstantList.DOWN_DIRECTION_ATTACK;
       }
-      if (key == 'd' || key == 'D' || keyCode == RIGHT) { // invertido
+      if (key == 'd' || key == 'D' || keyCode == RIGHT) {
         this.direction = ConstantList.LEFT_DIRECTION_ATTACK;
       }
       if (key == ' ') {
