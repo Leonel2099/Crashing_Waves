@@ -224,21 +224,21 @@ class Stage extends FrameObject {
       text("1", 17, 54);
       fill(#E86D0E);
       text("1", 15, 53);
-      fill(255);
+      fill(#8B4D0A);
     }
     if (level==ConstantList.SECOND_LEVEL) {
       fill(0);
       text("2", 17, 54);
       fill(#E86D0E);
       text("2", 15, 53);
-      fill(255);
+      fill(#8B4D0A);
     }
     if (level==ConstantList.THIRD_LEVEL) {
       fill(0);
       text("3",17, 54);
-      fill(255,255,255);
+      fill(#E86D0E);
       text("3", 15, 53);
-      fill(255);
+      fill(#8B4D0A);
     }
   }
 
