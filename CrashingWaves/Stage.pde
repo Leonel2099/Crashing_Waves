@@ -19,12 +19,12 @@ class Stage extends FrameObject {
     this.score=0;
     this.level=ConstantList.FIRST_LEVEL;
   }
-  
+
   //---Zona de metodos-------//
-  
+
   /**Dibuja el escenario de juego segun el puntaje */
   public void display() {
-    if (score<120){
+    if (score<120) {
       frameRate(40);
       Stage afternoon=new Morning();
       afternoon.display();
@@ -40,89 +40,103 @@ class Stage extends FrameObject {
       afternoon.display();
     }
   }
- 
+
   /**Agrega un enemigo en una direccion aleatorio */
-  public void addEnemyRandom(){
+  public void addEnemyRandom() {
     int num = (int)random(0, 4);
     if (level==ConstantList.FIRST_LEVEL) {
-      switch(num){
-        case 0:{
-          Enemy goblinOne=new Goblin(new PVector(random(285,360), -48), ConstantList.DOWN_DIRECTION);
+      switch(num) {
+      case 0:
+        {
+          Enemy goblinOne=new Goblin(new PVector(random(285, 360), -48), ConstantList.DOWN_DIRECTION);
           this.enemies.add(goblinOne);
           break;
         } 
-        case 1:{
-          Enemy goblinTwo=new Goblin(new PVector(-48, random(285,360)), ConstantList.RIGHT_DIRECTION);
+      case 1:
+        {
+          Enemy goblinTwo=new Goblin(new PVector(-48, random(285, 360)), ConstantList.RIGHT_DIRECTION);
           this.enemies.add(goblinTwo);
           break;
         }
-        case 2:{
-          Enemy goblinThree=new Goblin(new PVector(width+48, random(285,360)), ConstantList.LEFT_DIRECTION);
+      case 2:
+        {
+          Enemy goblinThree=new Goblin(new PVector(width+48, random(285, 360)), ConstantList.LEFT_DIRECTION);
           this.enemies.add(goblinThree);
           break;
         }
-        case 3:{
-          Enemy goblinFour=new Goblin(new PVector(random(285,360), height+48), ConstantList.UP_DIRECTION);
+      case 3:
+        {
+          Enemy goblinFour=new Goblin(new PVector(random(285, 360), height+48), ConstantList.UP_DIRECTION);
           this.enemies.add(goblinFour);
           break;
         }
       }
-    }if (level==ConstantList.SECOND_LEVEL) {
-      switch(num){
-        case 0:{
-          Enemy possessedOne=new PossessedEnemy(new PVector(random(285,360), -48), ConstantList.DOWN_DIRECTION);
+    }
+    if (level==ConstantList.SECOND_LEVEL) {
+      switch(num) {
+      case 0:
+        {
+          Enemy possessedOne=new PossessedEnemy(new PVector(random(285, 360), -48), ConstantList.DOWN_DIRECTION);
           this.enemies.add(possessedOne);
           break;
         } 
-        case 1:{
-          Enemy possessedTwo=new PossessedEnemy(new PVector(-48, random(285,360)), ConstantList.RIGHT_DIRECTION);
+      case 1:
+        {
+          Enemy possessedTwo=new PossessedEnemy(new PVector(-48, random(285, 360)), ConstantList.RIGHT_DIRECTION);
           this.enemies.add(possessedTwo);
           break;
         }
-        case 2:{
-          Enemy possessedThree=new PossessedEnemy(new PVector(width+48, random(285,360)), ConstantList.LEFT_DIRECTION);
+      case 2:
+        {
+          Enemy possessedThree=new PossessedEnemy(new PVector(width+48, random(285, 360)), ConstantList.LEFT_DIRECTION);
           this.enemies.add(possessedThree);
           break;
         }
-        case 3:{
-          Enemy possessedFour=new PossessedEnemy(new PVector(random(285,360), height+48), ConstantList.UP_DIRECTION);
+      case 3:
+        {
+          Enemy possessedFour=new PossessedEnemy(new PVector(random(285, 360), height+48), ConstantList.UP_DIRECTION);
           this.enemies.add(possessedFour);
           break;
         }
       }
-    }if (level==ConstantList.THIRD_LEVEL) {
-      switch(num){
-        case 0:{
-          Enemy skeletonOne=new Skeleton(new PVector(random(285,360), -48), ConstantList.DOWN_DIRECTION);
+    }
+    if (level==ConstantList.THIRD_LEVEL) {
+      switch(num) {
+      case 0:
+        {
+          Enemy skeletonOne=new Skeleton(new PVector(random(285, 360), -48), ConstantList.DOWN_DIRECTION);
           this.enemies.add(skeletonOne);
           break;
         } 
-        case 1:{
-          Enemy skeletonTwo=new Skeleton(new PVector(-48, random(285,360)), ConstantList.RIGHT_DIRECTION);
+      case 1:
+        {
+          Enemy skeletonTwo=new Skeleton(new PVector(-48, random(285, 360)), ConstantList.RIGHT_DIRECTION);
           this.enemies.add(skeletonTwo);
           break;
         }
-        case 2:{
-          Enemy skeletonThree=new Skeleton(new PVector(width+48, random(285,360)), ConstantList.LEFT_DIRECTION);
+      case 2:
+        {
+          Enemy skeletonThree=new Skeleton(new PVector(width+48, random(285, 360)), ConstantList.LEFT_DIRECTION);
           this.enemies.add(skeletonThree);
           break;
         }
-        case 3:{
-          Enemy skeletonFour=new Skeleton(new PVector(random(285,360), height+48), ConstantList.UP_DIRECTION);
+      case 3:
+        {
+          Enemy skeletonFour=new Skeleton(new PVector(random(285, 360), height+48), ConstantList.UP_DIRECTION);
           this.enemies.add(skeletonFour);
           break;
         }
       }
     }
   }
-  
+
   /**Dibuja la lista de enemigos */
   public void displayEnemies() {
     for (Enemy enemy : enemies) {
       enemy.display();
     }
   }
-  
+
   /**Realiza el movimiento de la lista de enemigos */
   public void moveEnemies() {
     for (Enemy enemy : enemies) {
@@ -140,22 +154,51 @@ class Stage extends FrameObject {
       }
     }
   }
-  
+
   /**Remueve un enemigo de la lista */
   public void removeEnemy(Player player) {
     for (int i =stage.enemies.size()-1; i>=0; i--) {
-      if (player.colliding(enemies.get(i))) {
-        enemies.remove(i);
-        increaseScore();
+      if ((player.colliding(enemies.get(i)))) {
+        if (player.getDirection()==1&&enemies.get(i).getDirection()==ConstantList.DOWN_DIRECTION) {
+          //enemies.remove(i).die();
+          enemies.get(i).die();
+          enemies.remove(i);
+          increaseScore();
+        }
+        if (player.getDirection()==2&&enemies.get(i).getDirection()==3) {
+          //enemies.remove(i).die();
+          enemies.get(i).die();
+          enemies.remove(i);
+          increaseScore();
+        }
+        if (player.getDirection()==3&&enemies.get(i).getDirection()==4) {
+          //enemies.remove(i).die();
+          enemies.get(i).die();
+          enemies.remove(i);
+          increaseScore();
+        }
+        if (player.getDirection()==4&&enemies.get(i).getDirection()==2) {
+          //enemies.remove(i).die();
+          enemies.get(i).die();
+          enemies.remove(i);
+          increaseScore();
+        }
+        if (player.getDirection()==5) {
+          if (enemies.get(i).getDirection()==1||enemies.get(i).getDirection()==2||enemies.get(i).getDirection()==3||enemies.get(i).getDirection()==4) {
+            enemies.get(i).die();
+            enemies.remove(i);
+            increaseScore();
+          }
+        }
       }
     }
   }
-  
+
   /**Remueve la lista de enemigos pasando de nivel */
-  public void removeSpawn(){
+  public void removeSpawn() {
     for (int i =stage.enemies.size()-1; i>=0; i--) {
       enemies.remove(i);
-    }      
+    }
   }
 
   /**Muestra el puntaje */
@@ -175,8 +218,8 @@ class Stage extends FrameObject {
     PImage wallpaper=loadImage("data/Image/Fondo.png");
     image(wallpaper, 0, 0);
   }
-  
-  public void showParchment(){
+
+  public void showParchment() {
     PImage score;
     if (level==ConstantList.FIRST_LEVEL) {
       score=loadImage("data/Image/parchment_goblin.png");
@@ -191,7 +234,7 @@ class Stage extends FrameObject {
       image(score, 500, 20);
     }
   }
-  
+
   /**Muestra una pantalla de que el nivel se ha completado */
   public void showLevelPassScreen() {
     background(0);//Fondo de negro
@@ -212,7 +255,7 @@ class Stage extends FrameObject {
       this.score+=30;
     }
   }
-  
+
   /**Muestra el numero del nivel */
   public void showLevel() {
     PFont levelt;
@@ -235,7 +278,7 @@ class Stage extends FrameObject {
     }
     if (level==ConstantList.THIRD_LEVEL) {
       fill(0);
-      text("3",17, 54);
+      text("3", 17, 54);
       fill(#E86D0E);
       text("3", 15, 53);
       fill(#8B4D0A);
@@ -243,7 +286,7 @@ class Stage extends FrameObject {
   }
 
   //---Zona de metodos Accesores-------//
-  
+
   /** Modifica el valor del atributo score */
   public void setScore(Integer score) {
     this.score=score;
