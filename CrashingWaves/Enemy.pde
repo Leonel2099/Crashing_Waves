@@ -14,7 +14,7 @@ class Enemy extends FrameObject {
 
   /** Constructor por defecto */
   public Enemy() {
-    this.velocity=new PVector(4,4);
+    this.velocity=new PVector(7,7);
   }
 
   //---Zona de metodos-------//
@@ -22,7 +22,7 @@ class Enemy extends FrameObject {
 
   /**Dibujo de los enemigos*/
   public void display() {
-    image(this.sprite, position.x, position.y, 48, 48);
+    image(this.sprite, position.x, position.y, widthGO,heightGO);
   }
 
   /**Movimientos de los enemgios*/
@@ -41,29 +41,22 @@ class Enemy extends FrameObject {
   
   /**Ejecuta los sprite de ataque del enmigo hacia el jugador*/
   public void displayAttackToPlayer(Player player){
-    image(this.sprite, position.x, position.y, 48, 48);
+    image(this.sprite, position.x, position.y, widthGO,heightGO);
   }
   
   /**Este metodo verifica si la colision del enemigo con el jugador es verdadera, si lo es le quita vida y cambia sprite de enemigo*/
   public boolean  attackToPlayer(Player player) {
-     if ((this.position.y==player.getPosition().y-46)&&direction==ConstantList.DOWN_DIRECTION) {
-      return true;
-    }
-    if (this.position.x==(player.getPosition().x-46)&&direction==ConstantList.RIGHT_DIRECTION) {
-      return true;
-    }
-    if (this.position.x==(player.getPosition().x+46)&&direction==ConstantList.LEFT_DIRECTION) {
-      return true;
-    }
-    if ((this.position.y==(player.getPosition().y)+46)&&direction==ConstantList.UP_DIRECTION) {
-      return true;
-    }
+     if (!(this.position.y-40>player.getPosition().y||(this.position.x+40<(player.getPosition().x))||(this.position.x-40>(player.getPosition().x))||(this.position.y+40<(player.getPosition().y)))) {
+       this.velocity.x=0;
+       this.velocity.y=0;
+       return true;
+     }
     return false;
    }
    
-/** Para este metodo realizamos sobreescritura con respecto a su susb clases */   
+/** Para este metodo realizamos sobreescritura con respecto a sus sub clases */   
   public void die(){
-    image(this.sprite, position.x, position.y, 48, 48);
+    image(this.sprite, position.x, position.y, widthGO,heightGO);
   }
 
 
