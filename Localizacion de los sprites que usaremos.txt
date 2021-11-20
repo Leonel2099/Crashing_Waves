@@ -1,6 +1,0 @@
-Los sprites estan en la carpeta data/Image/Sprite.
-Estan ordenados en carpetas para diferenciarlos mejor.
-
-Facundo
-
-Ariel
