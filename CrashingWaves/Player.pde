@@ -6,9 +6,12 @@ class Player extends FrameObject {
 
   /**Representa la vida del player*/
   private Integer life;
-  
+
   /**Representa la direccion a la que apunta el player en número*/
   private Integer direction;
+
+  /**Representa la cantidad de cargas del ataque especial */
+  private int charger;
 
 
   /** Constructor por defecto */
@@ -24,30 +27,59 @@ class Player extends FrameObject {
     this.heightFrame = 48;
     this.posXframe = 0;
     this.posYframe = 0;
+    this.charger = 8;
   }
 
 
   //---Zona de metodos-------//
-  /**Se Dibuja al personaje del juego */
+  
+  /**Dibuja al personaje del juego */
   public void display() {
     sprite = loadImage("data/Image/Sprite/Player/Down/Png/WarriorDownIdle.png");
-    PImage spriteDown = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame); 
-    image(spriteDown, this.position.x, this.position.y);
+    PImage spriteDown = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
+    spriteDown.resize(53, 53);
+    image(spriteDown, this.position.x-3, this.position.y-3);
     if (this.posXframe < sprite.width - this.widthFrame) {
       this.posXframe += this.heightFrame;
     } else {
       this.posXframe=0;
     }
   }
-
-  /**Disminuye la variable vida cada vez que el enemigo golpee al player*/
-  public void lostLife() {
-    this.life--;
+  
+  /**Restablece las cargas cuando avanza de nivel*/
+  public void resetCharger(int level, int score) {
+    if (score==300&&level==ConstantList.SECOND_LEVEL) {
+      if (this.charger>=0||this.charger<=8) {
+        this.charger+=1;
+      }
+    }
+    if (score==660&&level==ConstantList.THIRD_LEVEL) {
+      if (this.charger>=0||this.charger<=8) {
+        this.charger+=1;
+      }
+    }
   }
 
-  /**Vizualiza el sprite para la barra de vida en sus diferentes estados y depende de una variable heal*/
-  public void displayLifeBar(int heal) {
-    if (heal<=100) {     
+  
+  /**Visualiza las cantidad de cargas disponibles del ataque especial*/
+  public void displayChargerAttack(int charger) {
+    fill(255);
+    PFont chargerText;
+    chargerText=createFont("alagard.ttf", 20);
+    textAlign(CENTER);
+    textFont(chargerText);
+    if (charger<=0) {
+      text("x"+0, 95, 55);
+    } else {
+      text("x"+charger, 95, 55);
+    }
+    fill(#8B4D0A);
+  }
+
+
+  /**Visualiza el sprite para la barra de vida */
+  public void displayLifeBar(int heal, int state) {
+    if (heal<=100) {
       PImage barLife = loadImage("data/Image/Sprite/HealthBar/Png/BarLife.png");
       PImage lifeBar = barLife.get(this.posXframe, this.posYframe, 300, 40);
       lifeBar.resize(300, 40);
@@ -80,74 +112,36 @@ class Player extends FrameObject {
       case 10:
         this.posYframe=360;
         break;
-      case 6:
+      case 0:
         this.posYframe=400;
         break;
       }
-      if (heal<3) {
+      if (state==ConstantList.GAME_OVER||state==ConstantList.VICTORY) {
         this.posYframe=0;
       }
     }
   }
 
 
-  /**Vizualiza el sprite del player recibiendo daño*/
-  public void displayPlayerHurt() {
-    sprite = loadImage("data/Image/Sprite/Player/Down/Png/WarriorDownHurt.png");
-    PImage spriteDown = sprite.get(this.posXframe+96, this.posYframe, this.widthFrame, this.heightFrame);
-    image(spriteDown, this.position.x, this.position.y);
-  }
-
-
-  /**Este metodo evalua si el player colisiona con el enemigo mediante su ataque*/
+  /**Evalua si el player colisiona con el enemigo mediante su ataque*/
   public boolean colliding(Enemy enemy) {
-    if (((this.position.y-46)==enemy.getPosition().y)&&direction==ConstantList.UP_DIRECTION_ATTACK) {
-      sword.setGain(-5);
-      sword.play();
-      sword.rewind();
-      enemy.die();
+    if (!(this.position.y>enemy.getPosition().y+48||(this.position.x+48<(enemy.getPosition().x))||(this.position.x>(enemy.getPosition().x+48))||(this.position.y+48<(enemy.getPosition().y)))) {
+      getSword().setGain(-5);
+      getSword().play();
+      getSword().rewind();
       return true;
-    }
-    if (this.position.x+46==(enemy.getPosition().x)&&direction==ConstantList.LEFT_DIRECTION_ATTACK) {
-      sword.setGain(-5);
-      sword.play();
-      sword.rewind();
-      enemy.die();
-      return true;
-    }
-    if (this.position.x-46==(enemy.getPosition().x)&&direction==ConstantList.RIGHT_DIRECTION_ATTACK) {
-      sword.setGain(-5);
-      sword.play();
-      sword.rewind();
-      enemy.die();
-      return true;
-    }
-    if ((this.position.y+46==(enemy.getPosition().y))&&direction==ConstantList.DOWN_DIRECTION_ATTACK) {
-      sword.setGain(-5);
-      sword.play();
-      sword.rewind();
-      enemy.die();
-      return true;
-    }
-    if (direction==ConstantList.ALL_DIRECTION_ATTACK) {
-      if ((this.position.y-46==(enemy.getPosition().y))||(this.position.x+46==(enemy.getPosition().x))||(this.position.y+46==(enemy.getPosition().y))||(this.position.x-46==(enemy.getPosition().x))) {
-        sword.setGain(-5);
-        sword.play();   
-        sword.rewind();
-        enemy.die();
-        return true;
-      }
     }
     return false;
   }
 
 
-  /**Carga el sprite del ataque especial*/
+  /**Visualiza el sprite del ataque especial*/
   public void attackCircurlarly(int attack) {
-    if (attack == 5) {
+    if (attack == ConstantList.ALL_DIRECTION_ATTACK) {
       sprite = loadImage("data/Image/Sprite/Player/Down/Png/WarriorAttackCircularly.png");
       PImage spriteDown = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
-      image(spriteDown, this.position.x, this.position.y);
+      spriteDown.resize(53, 53);
+      image(spriteDown, this.position.x-3, this.position.y-3);
       if (this.posXframe < sprite.width - this.widthFrame) {
         this.posXframe += this.widthFrame;
       } else {
@@ -156,57 +150,61 @@ class Player extends FrameObject {
     }
   }
 
-  /**Carga los sprites del personaje que usara para el ataque*/
+  /**Visualiza los sprite de ataque del jugador dependiendo sus direcciones*/
   public void attack(int directionAttack) {
     if (directionAttack == 0) {
       display();
     }
-    if (directionAttack == 1) {
-      sword2.setGain(-5);
-      sword2.play();
-      sword2.rewind();
+    if (directionAttack == ConstantList.UP_DIRECTION_ATTACK) {
+      getSword2().setGain(-5);
+      getSword2().play();
+      getSword2().rewind();
       sprite = loadImage("data/Image/Sprite/Player/Up/Png/WarriorUpAttack01.png");
       PImage spriteUp = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
-      image(spriteUp, this.position.x, this.position.y);
+      spriteUp.resize(53, 53);
+      image(spriteUp, this.position.x-3, this.position.y-13);
       if (this.posXframe < sprite.width - this.widthFrame) {
         this.posXframe += this.widthFrame;
       } else {
         this.posXframe=0;
       }
     }
-    if (directionAttack == 2) {
-      sword2.setGain(-5);
-      sword2.play();
-      sword2.rewind();
+    if (directionAttack == ConstantList.RIGHT_DIRECTION_ATTACK) {
+      getSword2().setGain(-5);
+      getSword2().play();
+      getSword2().rewind();
       sprite = loadImage("data/Image/Sprite/Player/Right/Png/WarriorRightAttack01.png");
       PImage spriteRight = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
-      image(spriteRight, this.position.x, this.position.y);
+      spriteRight.resize(53, 53);
+      image(spriteRight, this.position.x+10, this.position.y-6);
       if (this.posXframe < sprite.width - this.widthFrame) {
         this.posXframe += this.widthFrame;
       } else {
         this.posXframe=0;
       }
     }
-    if (directionAttack == 3) {
-      sword2.setGain(-5);
-      sword2.play();
-      sword2.rewind();
+    if (directionAttack == ConstantList.DOWN_DIRECTION_ATTACK) {
+      getSword2().setGain(-5);
+      getSword2().play();
+      getSword2().rewind();
       sprite = loadImage("data/Image/Sprite/Player/Down/Png/WarriorDownAttack01.png");
       PImage spriteDown = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
-      image(spriteDown, this.position.x, this.position.y);
+      spriteDown.resize(53, 53);
+      image(spriteDown, this.position.x-3, this.position.y+10);
       if (this.posXframe < sprite.width - this.widthFrame) {
         this.posXframe += this.widthFrame;
       } else {
         this.posXframe=0;
       }
     }
-    if (directionAttack == 4) {
-      sword2.setGain(-5);
-      sword2.play();
-      sword2.rewind();
+    if (directionAttack == ConstantList.LEFT_DIRECTION_ATTACK) {
+      getSword2().setGain(-5);
+      getSword2().play();
+      getSword2().rewind();
       sprite = loadImage("data/Image/Sprite/Player/Left/Png/WarriorLeftAttack01.png");
-      PImage spriteDown = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
-      image(spriteDown, this.position.x, this.position.y);
+      PImage spriteLeft = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
+      spriteLeft.resize(53, 53);
+      image(spriteLeft, this.position.x-13, this.position.y-6);
       if (this.posXframe < sprite.width - this.widthFrame) {
         this.posXframe += this.widthFrame;
       } else {
@@ -214,7 +212,49 @@ class Player extends FrameObject {
       }
     }
   }
-  
+
+
+  /**Visualiza el sprite del player recibiendo daño*/
+  public void displayPlayerHurt() {
+    if (this.direction==0) {
+      sprite = loadImage("data/Image/Sprite/Player/Down/Png/WarriorDownHurt.png");
+      PImage spriteStill= sprite.get(this.posXframe+96, this.posYframe, this.widthFrame, this.heightFrame);
+      spriteStill.resize(53, 53);
+      image(spriteStill, this.position.x-3, this.position.y+1);
+    }
+    if (this.direction==ConstantList.UP_DIRECTION_ATTACK) {
+      sprite = loadImage("data/Image/Sprite/Player/Up/Png/WarriorUpHurt.png");
+      PImage spriteUp = sprite.get(this.posXframe+48, this.posYframe, this.widthFrame, this.heightFrame);
+      spriteUp.resize(53, 53);
+      image(spriteUp, this.position.x-3, this.position.y-10);
+    }
+    if (this.direction==ConstantList.DOWN_DIRECTION_ATTACK) {
+      sprite = loadImage("data/Image/Sprite/Player/Down/Png/WarriorDownHurtAttack.png");
+      PImage spriteDown = sprite.get(this.posXframe+48, this.posYframe, this.widthFrame, this.heightFrame);
+      spriteDown.resize(53, 53);
+      image(spriteDown, this.position.x-3, this.position.y+4);
+    }
+    if (this.direction==ConstantList.LEFT_DIRECTION_ATTACK) {
+      sprite = loadImage("data/Image/Sprite/Player/Left/Png/WarriorLeftHurt.png");
+      PImage spriteLeft = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
+      spriteLeft.resize(53, 53);
+      image(spriteLeft, this.position.x-10, this.position.y-6);
+    }
+    if (this.direction==ConstantList.RIGHT_DIRECTION_ATTACK) {
+      sprite = loadImage("data/Image/Sprite/Player/Right/Png/WarriorRightHurt.png");
+      PImage spriteRight = sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
+      spriteRight.resize(53, 53);
+      image(spriteRight, this.position.x+8, this.position.y-7);
+    }
+  }
+
+
+  /**Disminuye la variable vida cada vez que el enemigo golpee al player*/
+  public void lostLife() {
+    this.life--;
+  }
+
+
   /** Evaluamos la tecla presionada y ejecutar una accion */
   public void keyTyped() {
     this.direction = 0;
@@ -223,29 +263,30 @@ class Player extends FrameObject {
         this.direction = ConstantList.UP_DIRECTION_ATTACK;
       }
       if (key == 'a' || key == 'A' || keyCode == LEFT) {
-        this.direction = ConstantList.RIGHT_DIRECTION_ATTACK;
+        this.direction = ConstantList.LEFT_DIRECTION_ATTACK;
       }
       if (key == 's' || key == 'S' || keyCode == DOWN) {
         this.direction = ConstantList.DOWN_DIRECTION_ATTACK;
       }
       if (key == 'd' || key == 'D' || keyCode == RIGHT) {
-        this.direction = ConstantList.LEFT_DIRECTION_ATTACK;
+        this.direction = ConstantList.RIGHT_DIRECTION_ATTACK;
       }
-      if (key == ' ') {
-        this.direction = ConstantList.ALL_DIRECTION_ATTACK;
+      if (this.charger>=0) {
+        if (key == ' ') {
+          this.direction = ConstantList.ALL_DIRECTION_ATTACK;
+        }
       }
       attack(this.direction);
       attackCircurlarly(this.direction);
     }
   }
-  
+
   /** Solo ejecutamos una accion hasta dejar de presionar la tecla */
   public void keyReleased() {
     if (keyPressed==false) {
       display();
     }
   }
-
 
 
   //---Zona de metodos Accesores-------//
@@ -259,11 +300,19 @@ class Player extends FrameObject {
     return this.life;
   }
   /** Modifica el valor del atributo direction */
-  public void setDirection(Integer direction){
+  public void setDirection(Integer direction) {
     this.direction = direction;
   }
   /** Obtenemos la variable direction*/
   public int getDirection() {
     return this.direction;
+  }
+  /** Modifica el valor del atributo charger */
+  public void setCharger(int charger) {
+    this.charger=charger;
+  }
+  /** Obtenemos la variable charger*/
+  public int getCharger() {
+    return this.charger;
   }
 }
