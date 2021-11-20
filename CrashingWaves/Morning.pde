@@ -7,7 +7,7 @@ class Morning extends Stage {
   /** Constructor por defecto */
   public Morning() {
     sprite = loadImage("data/Image/Sprite/Background/Png/BackgroundModelV1.png");
-    this.position = new PVector(0,0);
+    this.position = new PVector(0, 0);
     posXframe=0;
     posYframe=0;
     widthFrame=700;
