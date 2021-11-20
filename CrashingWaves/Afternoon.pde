@@ -7,7 +7,7 @@ class Afternoon extends Stage {
   /** Constructor por defecto */
   public Afternoon() {
     sprite = loadImage("data/Image/Sprite/Background/Png/BackgroundModelV1.png");
-    this.position = new PVector(0,0);
+    this.position = new PVector(0, 0);
     posXframe=700;
     posYframe=0;
     widthFrame=700;
@@ -18,7 +18,7 @@ class Afternoon extends Stage {
 
   /**Se Dibuja la imagen en el background*/
   public void display() {
-    PImage mapFrameMorning=sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
-    image(mapFrameMorning, position.x, position.y);
+    PImage mapFrameAfternoon=sprite.get(this.posXframe, this.posYframe, this.widthFrame, this.heightFrame);
+    image(mapFrameAfternoon, position.x, position.y);
   }
 }
